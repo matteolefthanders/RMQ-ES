@@ -19,7 +19,8 @@
     "morgan": "^1.7.0",
     "shortid": "^2.2.6",
     "x-error": "^0.0.10",
-    "superagent": "^1.8.3"
+    "superagent": "^1.8.3",
+    "express-building-blocks": "tutored/express-building-blocks"
   },
   "devDependencies": {},
   "scripts": {

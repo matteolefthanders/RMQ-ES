@@ -14,7 +14,6 @@ amqp.connect('amqp://localhost', function(err, conn) {
       console.log(' [*] Waiting for logs. To exit press CTRL+C');
       ch.bindQueue(q.queue, ex, key);
       ch.consume(q.queue, function(msg) {
-        console.log(msg.content.toString());
         elastic['addInfo'](msg.content.toString());
         ch.ack(msg);
       }, {noAck: false});
