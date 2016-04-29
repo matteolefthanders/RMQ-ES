@@ -14,13 +14,14 @@
     "elasticsearch": "^11.0.1",
     "electrolyte": "^0.2.2",
     "express": "^4.13.4",
+    "express-building-blocks": "tutored/express-building-blocks",
     "extend": "^3.0.0",
     "joi": "^8.0.5",
+    "js-yaml": "^3.6.0",
     "morgan": "^1.7.0",
     "shortid": "^2.2.6",
-    "x-error": "^0.0.10",
     "superagent": "^1.8.3",
-    "express-building-blocks": "tutored/express-building-blocks"
+    "x-error": "^0.0.10"
   },
   "devDependencies": {},
   "scripts": {

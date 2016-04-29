@@ -1,0 +1,22 @@
+{
+    "test": {
+    },
+    "production": {
+    },
+    "development": {
+        "username": "tutored",
+        "password": "manchester",
+        "database": "copy",
+        "host": "localhost",
+        "dialect": "mysql",
+        "options": {
+            "host": "localhost",
+            "dialect": "mysql",
+            "define": {
+                "underscored": true,
+                "underscoredAll": true
+            },
+            "logging": false
+        }
+    }
+}

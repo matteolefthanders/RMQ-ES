@@ -9,12 +9,13 @@ exports = module.exports = function (rabbit) {
   function first (req) {
     let
   		error = (req.params.error) ? req.params.error : false,
-  		prom ;
+  		prom;
 
+    // Generate Error
   	if (error) prom = new Promise(function(resolve) {  resolve(cosachenonesiste.boh)  });
+    // Resolve with value
   	else prom = new Promise(function(resolve){ resolve('First Api called'); })
-  	
-
+  
   	return prom
   	.then(function (res) {
   		rabbit['info'](req,res)

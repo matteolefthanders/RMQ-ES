@@ -1,0 +1,11 @@
+---
+# File di Configurazione per lo sviluppo
+elasticsearch:
+  exchange:
+    name: 'topic_logs'
+    type: 'topic'
+  infoIndex: 'info'
+  errorIndex: 'error'
+
+amqp:
+  host:'amqp://localhost'

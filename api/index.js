@@ -13,6 +13,7 @@ let //
 
 
 function walk (dir) {
+  // Thanks to Mr.Coltrè
   let currentDir = {};
   fs.readdirSync(dir)
   .filter(function blacklist (file) {
@@ -25,12 +26,9 @@ function walk (dir) {
     let exportName = path.basename(file, '.js').replace(/-([a-z])/g, function (g) {
       return g[1].toUpperCase();
     });
-
-    // in case is a dir, recurse
     if (stat.isDirectory()) {
       currentDir[exportName] = walk(filePath);
     } else {
-      // console.log(path.relative(iocPath, filePath));
       currentDir[exportName] = ioc.create(path.relative(iocPath, filePath));
     }
   });
@@ -41,16 +39,10 @@ let api = walk(__dirname);
 
 exports = module.exports = function ( expressify) {
   let router = express.Router();
-  // router.use(passport.initialize());
 
-  router.get('/',/* auth('any'),*/ function (req, res) {
-    console.log('user:', req.user);
-    res.json({ message: 'hooray! welcome to our api!' });
-  });
-  
+  // API LIST
   router.get('/first/:error?',expressify(api.first));
   
-
   return router;
 };
 

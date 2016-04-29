@@ -2,28 +2,23 @@
 // RABBIT EMITTER
 let amqp = require('amqplib');
 let clone = require('clone');
-const ex = 'topic_logs';
-const key1 = 'info';
-const key2 = 'error';
 
-
-
-exports = module.exports = function () {
+exports = module.exports = function (config) {
   let 
     ch = null,
     rabbit = {};
 
-  amqp.connect('amqp://localhost')
+  amqp.connect(config.amqp.host)
   .then(function(con) {
     return con.createChannel();
   })
   .then(function(channel) {
-    channel.assertExchange(ex, 'topic', { durable: true });
+    channel.assertExchange(config.elasticsearch.exchange.name, config.elasticsearch.exchange.type, { durable: true });
     ch = channel;  
   });
 
   
-  rabbit['info'] = function (req, res) {
+  rabbit[config.elasticsearch.infoIndex] = function (req, res) {
     var obj = { req: {}, res: {} };
     obj.req.time = new Date();
     obj.req.headers = req.headers;
@@ -35,9 +30,9 @@ exports = module.exports = function () {
     obj.res.value = clone(res);
     obj.res.time = new Date();
     let msg = JSON.stringify(obj)
-    ch.publish('topic_logs', key1,new Buffer(msg));
+    ch.publish(config.elasticsearch.exchange.name, config.elasticsearch.infoIndex,new Buffer(msg));
   }
-  rabbit['error'] = function (req, e) {
+  rabbit[config.elasticsearch.errorIndex] = function (req, e) {
     var obj = { req: {}, err: {} };
     obj.req.time = new Date();
     obj.req.headers = req.headers;
@@ -51,7 +46,7 @@ exports = module.exports = function () {
     obj.err.message = e.message;
     obj.err.time = new Date();
     let msg = JSON.stringify(obj)
-    ch.publish('topic_logs', key2,new Buffer(msg));
+    ch.publish(config.elasticsearch.exchange.name, config.elasticsearch.errorIndex,new Buffer(msg));
   }
 
 
@@ -62,3 +57,4 @@ exports = module.exports = function () {
 }
 
 exports['@singleton'] = true;
+exports['@require'] = ['config'];
